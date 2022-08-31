@@ -12,4 +12,7 @@ public interface FoodMapper {
     List<RestaurantDto> findByAll();
 
     List<RestaurantDto> findNearLocation(double latitude, double longitude, int offset, int number);
+
+    List<RestaurantDto> findMostLike(int offset, int number);
+
 }

@@ -18,8 +18,8 @@ CREATE TABLE food (
     marketType       varchar(50) NOT NULL,           --업태
     isOperating      bool NOT NULL,                   --엉업상태
     startDate        varchar(10) NOT NULL,          --인허가 일자
-    latitude         float NOT NULL,                 --위도
-    longitude        float NOT NULL,                -- 경도
+    latitude         real NOT NULL,                 --위도
+    longitude        real NOT NULL,                -- 경도
     roadAddress      varchar(255) NOT NULL,          --도로명 주소
     roadZipCode      varchar(10) NOT NULL,           --도로명 우편번호
     titleImageUrl    varchar(255) NOT NULL,           --title 이미지 주소

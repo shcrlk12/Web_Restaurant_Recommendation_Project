@@ -33,4 +33,15 @@ public class RestaurantDto {
                 restaurantDto.getCommentsNumber(),
                 new LatLongPosition(restaurantDto.getLatitude(), restaurantDto.getLongitude()));
     }
+
+    public static RestaurantOverview of(RestaurantDto restaurantDto){
+        return  new RestaurantOverview(restaurantDto.getName(),
+                restaurantDto.getTitleImageUrl(),
+                "foodDetail/" + restaurantDto.getSeq(),
+                "",
+                restaurantDto.getMarketType(),
+                restaurantDto.getLikesNumber(),
+                restaurantDto.getCommentsNumber(),
+                new LatLongPosition(restaurantDto.getLatitude(), restaurantDto.getLongitude()));
+    }
 }

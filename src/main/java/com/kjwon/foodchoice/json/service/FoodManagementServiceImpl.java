@@ -1,7 +1,8 @@
 package com.kjwon.foodchoice.json.service;
 
 import com.kjwon.foodchoice.json.dto.RestaurantDto;
-import com.kjwon.foodchoice.json.exception.NotFoundKeywordException;
+import com.kjwon.foodchoice.json.errors.NotFoundException;
+import com.kjwon.foodchoice.json.errors.NotFoundKeywordException;
 import com.kjwon.foodchoice.json.mapper.FoodMapper;
 import com.kjwon.foodchoice.json.mapper.RegisterKeyword;
 import com.kjwon.foodchoice.json.model.LatLongPosition;
@@ -22,34 +23,43 @@ public class FoodManagementServiceImpl implements RestaurantSearch{
     private final RegisterKeyword registerKeyword;
 
     @Override
-    public List<RestaurantOverview> findNearRestaurant(String location, int offset, int number) throws NotFoundKeywordException {
+    public List<RestaurantOverview> findNearRestaurant(String location, int offset, int number) throws NotFoundException {
         LatLongPosition latLongPosition = this.findLocation(location);
         List<RestaurantDto> restaurantDtoList = foodMapper.findNearLocation(latLongPosition.getLatitude(), latLongPosition.getLongitude(), offset, number);
 
         List<RestaurantOverview> restaurantOverviewList = new ArrayList<>();
         TmPosition tmPosition = FunctionUtil.convertTmCoordinate(latLongPosition);
-
         for(RestaurantDto restaurantDto : restaurantDtoList){
-            double distance = FunctionUtil.distance(tmPosition, new TmPosition(restaurantDto.getLatitude(), restaurantDto.getLongitude()));
-            restaurantOverviewList.add(RestaurantDto.of(restaurantDto, String.valueOf(distance), location));
+
+            double distance = FunctionUtil.distance(tmPosition,
+                    FunctionUtil.convertTmCoordinate(new LatLongPosition(restaurantDto.getLatitude(), restaurantDto.getLongitude())));
+
+            restaurantOverviewList.add(RestaurantDto.of(restaurantDto, String.valueOf((int)distance), location));
         }
         return restaurantOverviewList;
     }
 
     @Override
-    public List<RestaurantOverview> findPopularRestaurant(String location, int offset, int number) throws NotFoundKeywordException {
+    public List<RestaurantOverview> findPopularRestaurant(String location, int offset, int number) throws NotFoundException {
         return null;
     }
 
     @Override
     public List<RestaurantOverview> findMostPopularRestaurant(int offset, int number) {
-        return null;
+        List<RestaurantDto> restaurantDtoList = foodMapper.findMostLike(offset, number);
+        List<RestaurantOverview> restaurantOverviewList = new ArrayList<>();
+
+        for(RestaurantDto restaurantDto : restaurantDtoList){
+            restaurantOverviewList.add(RestaurantDto.of(restaurantDto));
+        }
+
+        return restaurantOverviewList;
     }
 
     @Override
-    public LatLongPosition findLocation(String name) throws NotFoundKeywordException {
+    public LatLongPosition findLocation(String name) throws NotFoundException {
         Optional<LatLongPosition> optionalLatLongPosition = Optional.ofNullable(registerKeyword.findLocationByName(name));
 
-        return optionalLatLongPosition.orElseThrow(NotFoundKeywordException::new);
+        return optionalLatLongPosition.orElseThrow(() -> new NotFoundException("keyword not found"));
     }
 }

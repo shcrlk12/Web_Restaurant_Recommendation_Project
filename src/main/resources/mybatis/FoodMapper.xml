@@ -8,4 +8,8 @@
     <select id="findNearLocation" resultType="com.kjwon.foodchoice.json.dto.RestaurantDto">
         SELECT * FROM food AS c ORDER BY sqrt(power(latitude - #{latitude}, 2) + POWER(longitude - #{longitude},2)) ASC LIMIT #{number} OFFSET #{offset}
     </select>
+
+    <select id="findMostLike" resultType="com.kjwon.foodchoice.json.dto.RestaurantDto">
+        SELECT * FROM food AS f ORDER BY f.likesNumber DESC LIMIT #{number} OFFSET #{offset}
+    </select>
 </mapper>

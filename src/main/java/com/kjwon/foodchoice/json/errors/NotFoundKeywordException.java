@@ -1,4 +1,4 @@
-package com.kjwon.foodchoice.json.exception;
+package com.kjwon.foodchoice.json.errors;
 
 import lombok.Getter;
 import lombok.Setter;

@@ -27,14 +27,14 @@ public class UtilTest {
     @DisplayName("두 지점간 거리 계산(m)")
     public void distanceBetweenTwoPoint(){
 
-        TmPosition startPoint = FunctionUtil.convertTmCoordinate(new LatLongPosition(37.474136, 127.0342116));
-        TmPosition endPoint = FunctionUtil.convertTmCoordinate(new LatLongPosition(37.4791136, 127.0364707));
+        TmPosition startPoint = FunctionUtil.convertTmCoordinate(new LatLongPosition(37.626453, 127.026119));
+        TmPosition endPoint = FunctionUtil.convertTmCoordinate(new LatLongPosition(37.5818196,127.0008454));
 
         double distance = FunctionUtil.distance(startPoint, endPoint);
 
         assertThat(distance)
-                .isGreaterThanOrEqualTo(583)
-                .isLessThanOrEqualTo(585);
+                .isGreaterThanOrEqualTo(5393)
+                .isLessThanOrEqualTo(5394);
 
     }
 

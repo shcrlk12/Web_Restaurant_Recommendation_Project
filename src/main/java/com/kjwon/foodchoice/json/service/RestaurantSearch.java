@@ -1,6 +1,6 @@
 package com.kjwon.foodchoice.json.service;
 
-import com.kjwon.foodchoice.json.exception.NotFoundKeywordException;
+import com.kjwon.foodchoice.json.errors.NotFoundKeywordException;
 import com.kjwon.foodchoice.json.model.LatLongPosition;
 import com.kjwon.foodchoice.json.model.RestaurantOverview;
 
