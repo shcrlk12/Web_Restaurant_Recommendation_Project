@@ -1,6 +1,6 @@
-package com.kjwon.foodchoice.json.mapper;
+package com.kjwon.foodchoice.mapper;
 
-import com.kjwon.foodchoice.json.model.LatLongPosition;
+import com.kjwon.foodchoice.clazz.LatLongPosition;
 import org.apache.ibatis.annotations.Mapper;
 
 @Mapper

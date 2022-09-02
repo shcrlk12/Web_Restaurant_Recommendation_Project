@@ -1,4 +1,4 @@
-package com.kjwon.foodchoice.json.errors;
+package com.kjwon.foodchoice.errors;
 
 public class NotFoundException extends RuntimeException {
 

@@ -1,4 +1,4 @@
-package com.kjwon.foodchoice.json.util;
+package com.kjwon.foodchoice.util;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;

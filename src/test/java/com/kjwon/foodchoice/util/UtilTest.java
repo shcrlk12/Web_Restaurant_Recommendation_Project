@@ -1,18 +1,13 @@
 package com.kjwon.foodchoice.util;
 
 
-import com.kjwon.foodchoice.json.model.LatLongPosition;
-import com.kjwon.foodchoice.json.model.RestaurantOverview;
-import com.kjwon.foodchoice.json.model.TmPosition;
-import com.kjwon.foodchoice.json.util.FunctionUtil;
+import com.kjwon.foodchoice.clazz.LatLongPosition;
+import com.kjwon.foodchoice.clazz.TmPosition;
 import org.junit.Test;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 

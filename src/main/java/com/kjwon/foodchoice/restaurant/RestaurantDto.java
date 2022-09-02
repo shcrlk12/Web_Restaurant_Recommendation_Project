@@ -1,4 +1,4 @@
-package com.kjwon.foodchoice.json.model;
+package com.kjwon.foodchoice.restaurant;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,7 +9,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class Restaurant {
+public class RestaurantDto {
     private String name;
     private String imageUrl;
     private String clickLink;

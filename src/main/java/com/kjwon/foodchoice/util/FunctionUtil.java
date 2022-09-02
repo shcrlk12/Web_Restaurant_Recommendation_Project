@@ -1,8 +1,7 @@
-package com.kjwon.foodchoice.json.util;
+package com.kjwon.foodchoice.util;
 
-import com.kjwon.foodchoice.json.model.LatLongPosition;
-import com.kjwon.foodchoice.json.model.RestaurantOverview;
-import com.kjwon.foodchoice.json.model.TmPosition;
+import com.kjwon.foodchoice.clazz.LatLongPosition;
+import com.kjwon.foodchoice.clazz.TmPosition;
 
 public class FunctionUtil {
     static double westLongitude = 125;

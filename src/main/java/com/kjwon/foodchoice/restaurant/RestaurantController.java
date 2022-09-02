@@ -1,10 +1,7 @@
-package com.kjwon.foodchoice.json.controller;
+package com.kjwon.foodchoice.restaurant;
 
-import com.kjwon.foodchoice.json.errors.NotFoundException;
-import com.kjwon.foodchoice.json.errors.NotFoundKeywordException;
-import com.kjwon.foodchoice.json.model.RestaurantOverview;
-import com.kjwon.foodchoice.json.service.FoodManagementServiceImpl;
-import com.kjwon.foodchoice.json.util.ApiUtils;
+import com.kjwon.foodchoice.dto.MenuDto;
+import com.kjwon.foodchoice.errors.NotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,22 +11,22 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
-import com.kjwon.foodchoice.json.util.ApiUtils.*;
+import com.kjwon.foodchoice.util.ApiUtils.*;
 
-import static com.kjwon.foodchoice.json.util.ApiUtils.success;
+import static com.kjwon.foodchoice.util.ApiUtils.success;
 
 @RestController()
-@RequestMapping("api/JSON/")
+@RequestMapping("api/JSON/restaurant")
 @AllArgsConstructor
-public class JsonController {
+public class RestaurantController {
 
     private final FoodManagementServiceImpl foodManagementService;
 
-    @GetMapping("foodOverviewList")
-    public ApiResult<List<RestaurantOverview>> getRestaurantOverviewList(Optional<String> location, Optional<String> classificationType
+    @GetMapping
+    public ApiResult<List<RestaurantOverviewDto>> getRestaurantOverviewList(Optional<String> location, Optional<String> classificationType
             , Optional<Integer> offset, Optional<Integer> number) throws NotFoundException {
 
-        List<RestaurantOverview> restaurantOverviewList = Collections.emptyList();
+        List<RestaurantOverviewDto> restaurantOverviewList = Collections.emptyList();
 
         String type = classificationType.orElse("popular");
 
@@ -46,8 +43,15 @@ public class JsonController {
             restaurantOverviewList = foodManagementService.findMostPopularRestaurant(offset.orElse(0), number.orElse(10));
         }
 
-
-
         return success(restaurantOverviewList);
+    }
+
+    @GetMapping("getMenus")
+    public ApiResult<List<MenuDto>> getMenus(Optional<Integer> restaurantId){
+        List<MenuDto> menuList = null;
+
+        menuList = foodManagementService.getMenus(restaurantId.get());
+
+        return success(menuList);
     }
 }

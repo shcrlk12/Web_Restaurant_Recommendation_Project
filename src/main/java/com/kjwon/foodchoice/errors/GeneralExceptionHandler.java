@@ -1,6 +1,6 @@
-package com.kjwon.foodchoice.json.errors;
+package com.kjwon.foodchoice.errors;
 
-import com.kjwon.foodchoice.json.util.ApiUtils;
+import com.kjwon.foodchoice.util.ApiUtils;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.NoHandlerFoundException;
 
 
-import static com.kjwon.foodchoice.json.util.ApiUtils.error;
+import static com.kjwon.foodchoice.util.ApiUtils.error;
 
 @ControllerAdvice
 public class GeneralExceptionHandler {

@@ -1,4 +1,4 @@
-package com.kjwon.foodchoice.json.model;
+package com.kjwon.foodchoice.clazz;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
