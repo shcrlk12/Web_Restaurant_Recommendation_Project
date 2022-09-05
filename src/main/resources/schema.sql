@@ -9,12 +9,14 @@ CREATE TABLE registerKeyword (
       city             varchar(40) NOT NULL,          -- 등록 지점 PK
       smallCity        varchar(40) NOT NULL,          -- 등록 지점 PK
       name             varchar(40) NOT NULL,           -- 등록 지점 이름
+      consonantVowel   varchar(100) NOT NULL,
       type             varchar(50) NOT NULL,          -- 등록 지점 타입(정류장, 지하철 역)
       latitude         real NOT NULL,                 -- 위도
       longitude        real NOT NULL,                 -- 경도
       roadAddress      varchar(255) NOT NULL,          -- 도로명 주소
       roadZipCode      varchar(10) NOT NULL,           -- 도로명 우편번호
-      PRIMARY KEY (id)
+      PRIMARY KEY (id),
+      key ind_consVow(consonantVowel)
 );
 
 CREATE TABLE restaurant (
@@ -23,7 +25,7 @@ CREATE TABLE restaurant (
       smallCity        varchar(40) NOT NULL,
       name             varchar(40) NOT NULL,
       marketType       varchar(50) NOT NULL,
-      description      text,
+      description      text default '',
       isOperating      bool NOT NULL,
       startDate        varchar(10) NOT NULL,
       latitude         real NOT NULL,

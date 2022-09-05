@@ -8,7 +8,7 @@ import java.util.List;
 @Mapper
 public interface RestaurantMapper {
 
-    List<Restaurant> findByAll();
+    Restaurant findById(long id);
 
     List<Restaurant> findNearLocation(String city, String smallCity, double latitude, double longitude, int offset, int number);
 

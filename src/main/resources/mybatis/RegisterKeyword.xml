@@ -4,4 +4,9 @@
     <select id="findLocationByName" resultType="com.kjwon.foodchoice.clazz.LatLongPosition">
         select r.city, r.smallCity, r.latitude, r.longitude from registerKeyword as r where r.name = #{name};
     </select>
+
+    <select id="findCompareKeyword" resultType="string">
+        SELECT * FROM registerkeyword AS r WHERE r.consonantVowel like #{keyword} LIMIT 5
+    </select>
+
 </mapper>

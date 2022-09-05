@@ -14,5 +14,7 @@ public interface RestaurantInfo
 
     List<MenuDto> getMenus(int restaurantId);
 
-    List<CommentDto> getComments(int restaurantId);
+    List<CommentDto> getComments(int restaurantId, int offset, int number);
+
+    RestaurantDto getRestaurantDetailInfo(int restaurantId);
 }

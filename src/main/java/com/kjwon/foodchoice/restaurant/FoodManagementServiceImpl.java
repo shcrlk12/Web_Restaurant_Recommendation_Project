@@ -3,6 +3,7 @@ package com.kjwon.foodchoice.restaurant;
 import com.kjwon.foodchoice.dto.CommentDto;
 import com.kjwon.foodchoice.dto.MenuDto;
 import com.kjwon.foodchoice.errors.NotFoundException;
+import com.kjwon.foodchoice.mapper.CommentMapper;
 import com.kjwon.foodchoice.mapper.RestaurantMapper;
 import com.kjwon.foodchoice.mapper.MenuMapper;
 import com.kjwon.foodchoice.mapper.RegisterKeyword;
@@ -24,8 +25,10 @@ public class FoodManagementServiceImpl implements RestaurantInfo, RestaurantSear
     private final RegisterKeyword registerKeyword;
 
     private final MenuMapper menuMapper;
+
+    private final CommentMapper commentMapper;
     @Override
-    public List<RestaurantOverviewDto> findNearRestaurant(String location, int offset, int number) throws NotFoundException {
+    public List<RestaurantDto> findNearRestaurant(String location, int offset, int number) throws NotFoundException {
         LatLongPosition latLongPosition = this.getLatitudeLongitudeLocation(location);
         List<Restaurant> restaurantList = restaurantMapper.findNearLocation(latLongPosition.getCity(),
                 latLongPosition.getSmallCity(),
@@ -34,30 +37,30 @@ public class FoodManagementServiceImpl implements RestaurantInfo, RestaurantSear
                 offset,
                 number);
 
-        List<RestaurantOverviewDto> restaurantOverviewDtoList = new ArrayList<>();
+        List<RestaurantDto> restaurantOverviewDtoList = new ArrayList<>();
         TmPosition tmPosition = FunctionUtil.convertTmCoordinate(latLongPosition);
         for(Restaurant restaurant : restaurantList){
 
             double distance = FunctionUtil.distance(tmPosition,
                     FunctionUtil.convertTmCoordinate(new LatLongPosition(restaurant.getLatitude(), restaurant.getLongitude())));
 
-            restaurantOverviewDtoList.add(Restaurant.of(restaurant, String.valueOf((int)distance), location));
+            restaurantOverviewDtoList.add(RestaurantDto.of(restaurant, String.valueOf((int)distance), location));
         }
         return restaurantOverviewDtoList;
     }
 
     @Override
-    public List<RestaurantOverviewDto> findPopularRestaurant(String location, int offset, int number) throws NotFoundException {
+    public List<RestaurantDto> findPopularRestaurant(String location, int offset, int number) throws NotFoundException {
         return null;
     }
 
     @Override
-    public List<RestaurantOverviewDto> findMostPopularRestaurant(int offset, int number) {
-        List<Restaurant> restaurantDtoList = restaurantMapper.findMostLike(offset, number);
-        List<RestaurantOverviewDto> restaurantOverviewList = new ArrayList<>();
+    public List<RestaurantDto> findMostPopularRestaurant(int offset, int number) {
+        List<Restaurant> restaurantList = restaurantMapper.findMostLike(offset, number);
+        List<RestaurantDto> restaurantOverviewList = new ArrayList<>();
 
-        for(Restaurant restaurantDto : restaurantDtoList){
-            restaurantOverviewList.add(Restaurant.of(restaurantDto));
+        for(Restaurant restaurant : restaurantList){
+            restaurantOverviewList.add(RestaurantDto.of(restaurant));
         }
 
         return restaurantOverviewList;
@@ -77,7 +80,14 @@ public class FoodManagementServiceImpl implements RestaurantInfo, RestaurantSear
     }
 
     @Override
-    public List<CommentDto> getComments(int restaurantId) {
-        return null;
+    public List<CommentDto> getComments(int restaurantId, int offset, int number) {
+
+        return CommentDto.of(commentMapper.findCommentsByRestaurantId(restaurantId, offset, number));
+    }
+
+    @Override
+    public RestaurantDto getRestaurantDetailInfo(int restaurantId) {
+
+        return RestaurantDto.of(restaurantMapper.findById(restaurantId));
     }
 }

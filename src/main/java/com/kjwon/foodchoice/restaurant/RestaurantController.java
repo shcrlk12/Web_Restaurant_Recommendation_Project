@@ -1,5 +1,6 @@
 package com.kjwon.foodchoice.restaurant;
 
+import com.kjwon.foodchoice.dto.CommentDto;
 import com.kjwon.foodchoice.dto.MenuDto;
 import com.kjwon.foodchoice.errors.NotFoundException;
 import lombok.AllArgsConstructor;
@@ -22,11 +23,11 @@ public class RestaurantController {
 
     private final FoodManagementServiceImpl foodManagementService;
 
-    @GetMapping
-    public ApiResult<List<RestaurantOverviewDto>> getRestaurantOverviewList(Optional<String> location, Optional<String> classificationType
+    @GetMapping("overview")
+    public ApiResult<List<RestaurantDto>> getRestaurantOverviewList(Optional<String> location, Optional<String> classificationType
             , Optional<Integer> offset, Optional<Integer> number) throws NotFoundException {
 
-        List<RestaurantOverviewDto> restaurantOverviewList = Collections.emptyList();
+        List<RestaurantDto> restaurantOverviewList = Collections.emptyList();
 
         String type = classificationType.orElse("popular");
 
@@ -51,6 +52,24 @@ public class RestaurantController {
         List<MenuDto> menuList = null;
 
         menuList = foodManagementService.getMenus(restaurantId.get());
+
+        return success(menuList);
+    }
+
+    @GetMapping("getComments")
+    public ApiResult<List<CommentDto>> getComments(Optional<Integer> restaurantId, Optional<Integer> offset, Optional<Integer> number){
+        List<CommentDto> menuList = null;
+
+        menuList = foodManagementService.getComments(restaurantId.get(), offset.get(), number.get());
+
+        return success(menuList);
+    }
+
+    @GetMapping("detail")
+    public ApiResult<RestaurantDto> getRestaurantDetail(Optional<Integer> restaurantId){
+        RestaurantDto menuList = null;
+
+        menuList = foodManagementService.getRestaurantDetailInfo(restaurantId.get());
 
         return success(menuList);
     }

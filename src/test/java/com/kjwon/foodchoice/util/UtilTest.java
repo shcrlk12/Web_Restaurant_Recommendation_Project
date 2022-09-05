@@ -9,6 +9,8 @@ import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import java.util.List;
+
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 @SpringBootTest
@@ -54,6 +56,24 @@ public class UtilTest {
                 ", real : " + tmPosition.getY());
     }
 
+    @Test
+    @DisplayName("자음 모음 분리 테스트")
+    public void getConsonantVowel1(){
+        String consonantVowel =  FunctionUtil.getConsonantVowelInChar("뷁");
+        
+        assertThat(consonantVowel)
+                .isEqualTo("ㅂㅞㄺ");
+    }
+
+    @Test
+    @DisplayName("문자열 자음 모음 분리 테스트")
+    public void getConsonantVowel2(){
+        String consonantVowel =  FunctionUtil.getConsonantVowel("압구정역");
+
+        assertThat(consonantVowel)
+                .isEqualTo("ㅇㅏㅂㄱㅜㅈㅓㅇㅇㅕㄱ");
+    }
+    
 //    @Test
 //    @DisplayName("위도 대비 경도 2도 거리 계산 테스트")
 //    public void longitudeDistanceTest2(){
