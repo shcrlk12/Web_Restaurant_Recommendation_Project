@@ -1,9 +1,13 @@
 <template>
     <div id="main-header">
         <div id="main-header-container">
-            <LeftHeader v-on:screenModeChange="screenModeChange" v-bind:link="link"></LeftHeader>
-            <LocationInput></LocationInput>
-            <RightHeader></RightHeader>
+            <div>
+                <LeftHeader v-on:screenModeChange="screenModeChange" v-bind:link="link"></LeftHeader>
+                <RightHeader></RightHeader>
+            </div>
+            <div>
+                <LocationInput></LocationInput>
+            </div>
         </div>
     </div>
 </template>
@@ -27,6 +31,26 @@ export default {
 
 }
 </script>
-<style>
+<style lang="scss">
+    @import "../../assets/color.scss";
+    @import "../../assets/main.scss";
+#main-header{
 
+    height: 130px;
+    width:100%;
+
+    #main-header-container{
+        height : 100%;
+        margin : 0 10px;
+        > div{
+            &:nth-child(1){
+                @include h-center;
+                justify-content: space-between;
+            }
+            &:nth-child(2){
+
+            }
+        }
+    }
+}
 </style>

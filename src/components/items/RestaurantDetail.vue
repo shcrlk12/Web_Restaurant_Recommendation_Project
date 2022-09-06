@@ -12,7 +12,6 @@
         <div id="restaurant-detail-body">
             {{restuarantDetail.description}}
         </div>
-        
     </div>
 </template>
 <script>

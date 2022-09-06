@@ -1,6 +1,6 @@
 <template>
     <div id="main-page">
-        <PageHeader></PageHeader>
+        <PageHeader v-on:searchTypeChange="searchTypeChange" v-bind:searchType="searchType"></PageHeader>
         <FoodOverviewList v-bind:foodOverviewList="foodOverviewList"></FoodOverviewList>
     </div>
 </template>
@@ -12,6 +12,7 @@ import axios from 'axios';
 export default {
     data(){
         return{
+            searchType : '',
             foodOverviewList : []
         }
     },
@@ -25,29 +26,45 @@ export default {
             console.log(data)
             if(data.success === true){
                 response.data.response.forEach(d => {
-                    let foodOverviewData = {
-                        imageUrl : d.titleImageUrl,
-                        link : d.clickLink,
-                        name : d.name,
-                        foodType : d.foodType,
-                        distance : d.distance,
-                        comment : d.commentsNumber,
-                        like : d.likesNumber
-                    }
-                    vue.foodOverviewList.push(foodOverviewData);
+                    vue.foodOverviewList.push(d);
                 });
             }
         })
+      },
+      searchTypeChange(value){
+        if(value === '인기'){
+            this.searchType = 'popular';
+        }else if(value === '거리'){
+            this.searchType = 'distance';
+        }
+
+        localStorage.setItem('searchType', this.searchType);
       }
     },
     created(){
+        this.searchType = localStorage.getItem('searchType');
+
         if(window.location.href.includes('localhost')){
             console.log('local');
             this.fetchData('http://localhost:1110/api/JSON/restaurant/overview?number=3');
         }
         else{
             let locationQuery = this.$route.query.location ? `&location=${this.$route.query.location}` : '';
-            let classificationTypeQuery = this.$route.query.classificationType ? `&classificationType=${this.$route.query.classificationType}` : '';
+            let classificationTypeQuery = this.searchType ? `&classificationType=${this.searchType}` : '&classificationType=popular';
+
+            console.log('external');
+
+            this.fetchData(`http://115.139.45.137:1110/api/JSON/restaurant/overview?number=3${locationQuery ? locationQuery : ''}${classificationTypeQuery ? classificationTypeQuery : ''}`);
+        }
+    },
+    updated(){
+        if(window.location.href.includes('localhost')){
+            console.log('local');
+            this.fetchData('http://localhost:1110/api/JSON/restaurant/overview?number=3');
+        }
+        else{
+            let locationQuery = this.$route.query.location ? `&location=${this.$route.query.location}` : '';
+            let classificationTypeQuery = this.searchType ? `&classificationType=${this.searchType}` : '&classificationType=popular';
 
             console.log('external');
 

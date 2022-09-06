@@ -44,6 +44,29 @@ export default {
     }
 }
 </script>
-<style>
+<style lang="scss">
+    @import "../../assets/color.scss";
+    @import "../../assets/main.scss";
+    #left-side-header{
+        flex: 0 0 130px;
+        display : flex;
 
+        h1{
+            width: 90px;
+            font-size : $font-size-400;
+            font-weight: $font-weight-semibold;
+            display:flex;
+            align-items: center;
+            padding-left:8px;
+            line-height: 70px;
+            margin : 0;
+        }
+        div{
+            width: 40px;
+            display:flex;
+            align-items: center;
+            padding-left:10px;
+            padding-right:10px;
+        }
+    }
 </style>
