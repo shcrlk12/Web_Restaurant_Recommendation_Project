@@ -4,9 +4,9 @@ import com.kjwon.foodchoice.dto.CommentDto;
 import com.kjwon.foodchoice.dto.MenuDto;
 import com.kjwon.foodchoice.errors.NotFoundException;
 import com.kjwon.foodchoice.mapper.CommentMapper;
+import com.kjwon.foodchoice.mapper.RegisterKeywordMapper;
 import com.kjwon.foodchoice.mapper.RestaurantMapper;
 import com.kjwon.foodchoice.mapper.MenuMapper;
-import com.kjwon.foodchoice.mapper.RegisterKeyword;
 import com.kjwon.foodchoice.clazz.LatLongPosition;
 import com.kjwon.foodchoice.clazz.TmPosition;
 import com.kjwon.foodchoice.util.FunctionUtil;
@@ -22,7 +22,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class FoodManagementServiceImpl implements RestaurantInfo, RestaurantSearch {
     private final RestaurantMapper restaurantMapper;
-    private final RegisterKeyword registerKeyword;
+    private final RegisterKeywordMapper registerKeyword;
 
     private final MenuMapper menuMapper;
 

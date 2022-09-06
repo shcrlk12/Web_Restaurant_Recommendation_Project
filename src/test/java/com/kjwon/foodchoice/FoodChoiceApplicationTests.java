@@ -1,5 +1,6 @@
 package com.kjwon.foodchoice;
 
+import com.kjwon.foodchoice.keyword.KeywordController;
 import com.kjwon.foodchoice.restaurant.RestaurantController;
 import com.kjwon.foodchoice.errors.NotFoundException;
 import com.kjwon.foodchoice.errors.NotFoundKeywordException;
@@ -400,5 +401,21 @@ class FoodChoiceApplicationTests {
                 .andExpect(jsonPath("$.response").exists())
                 .andExpect(jsonPath("$.response.description", is("최강 한식 대전 출연14")))
         ;
+    }
+
+    @Test
+    @DisplayName("keyword 조회")
+    void getSimilarKeywordTest() throws Exception{
+        ResultActions result = mockMvc.perform(
+                get("/api/JSON/keyword")
+                        .accept(MediaType.APPLICATION_JSON)
+                        .param("keyword", "ㅁ")
+        );
+
+        result.andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(handler().handlerType(KeywordController.class))
+                .andExpect(handler().methodName("getSimilarKeyword"))
+                .andExpect(jsonPath("$.success", is(true)));
     }
 }

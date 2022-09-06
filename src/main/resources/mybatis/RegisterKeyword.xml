@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.kjwon.foodchoice.mapper.RegisterKeyword">
+<mapper namespace="com.kjwon.foodchoice.mapper.RegisterKeywordMapper">
     <select id="findLocationByName" resultType="com.kjwon.foodchoice.clazz.LatLongPosition">
         select r.city, r.smallCity, r.latitude, r.longitude from registerKeyword as r where r.name = #{name};
     </select>
 
-    <select id="findCompareKeyword" resultType="string">
+    <select id="findCompareKeyword" resultType="com.kjwon.foodchoice.vo.RegisterKeyword">
         SELECT * FROM registerkeyword AS r WHERE r.consonantVowel like #{keyword} LIMIT 5
     </select>
 

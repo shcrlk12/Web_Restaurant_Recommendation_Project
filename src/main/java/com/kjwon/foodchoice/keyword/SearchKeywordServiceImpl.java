@@ -1,16 +1,18 @@
 package com.kjwon.foodchoice.keyword;
 
-import com.kjwon.foodchoice.mapper.RegisterKeyword;
+import com.kjwon.foodchoice.dto.ResisterKeywordDto;
+import com.kjwon.foodchoice.mapper.RegisterKeywordMapper;
 import lombok.AllArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @AllArgsConstructor
 public class SearchKeywordServiceImpl {
 
-    private final RegisterKeyword registerKeyword;
-    public void searchKeyword(String keyword){
-        registerKeyword.findCompareKeyword(keyword+"%");
+    private final RegisterKeywordMapper registerKeyword;
+    public List<ResisterKeywordDto> searchKeyword(String keyword){
+        return ResisterKeywordDto.of(registerKeyword.findCompareKeyword(keyword+"%"));
     }
 }
