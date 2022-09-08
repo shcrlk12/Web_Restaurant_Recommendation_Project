@@ -39,9 +39,10 @@ INSERT INTO menu(NAME, price, likesNumber, foodId) VALUES ('떡볶이', 4000, 8,
 INSERT INTO menu(NAME, price, likesNumber, foodId) VALUES ('김밥', 3000, 11, 15);
 
 
-INSERT INTO user VALUES ('shcrlk12@naver.com', 'kjw!@#2624959', '서울특별시 강북구 오현로9길 153', '010-9089-7208', '2022-09-02 16:44:22' , '2022-09-03 09:31:10', 35);
-INSERT INTO user VALUES ('soun@naver.com', 'soun4052!', '서울특별시 노원구 화랑로9길', '010-2404-9513', '2022-07-01 10:11:23' , '2022-09-01 02:48:00', 13);
-INSERT INTO user VALUES ('kitty@naver.com', 'kitty4052!', '서울특별시 강남구 바우뫼로 178', '010-4401-2384', '2022-08-04 09:01:13' , '2022-09-01 01:15:06', 60);
+INSERT INTO user VALUES ('shcrlk12@naver.com', 'kjw!@#2624959', '김정원', '서울특별시 강북구 오현로9길 153', '010-9089-7208', '2022-09-02 16:44:22' , '2022-09-03 09:31:10', 35);
+INSERT INTO user VALUES ('soun@naver.com', 'soun4052!', '방소운', '서울특별시 노원구 화랑로9길', '010-2404-9513', '2022-07-01 10:11:23' , '2022-09-01 02:48:00', 13);
+INSERT INTO user VALUES ('kitty@naver.com', 'kitty4052!', '김인태', '서울특별시 강남구 바우뫼로 178', '010-4401-2384', '2022-08-04 09:01:13' , '2022-09-01 01:15:06', 60);
+INSERT INTO user VALUES ('tester@gmail.com', '1234', 'tester', '', '', '2022-08-04 09:01:13' , '2022-09-01 01:15:06', 33);
 
 INSERT INTO comment(content, likesNumber, registerDate, isDisable, userId, restaurantId, commentId)
  VALUES ('안녕하세요 케케케1', 1, '2022-09-01 01:15:06', 0, 'shcrlk12@naver.com', 14, 0);

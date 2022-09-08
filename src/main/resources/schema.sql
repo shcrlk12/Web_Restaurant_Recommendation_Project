@@ -53,6 +53,7 @@ CREATE TABLE menu (
 CREATE TABLE user (
       userId                varchar(50) NOT NULL,
       password              varchar(50) NOT NULL,
+      name                  varchar(50) NOT NULL,
       roadAddress           varchar(100) NOT NULL default 0,
       phoneNumber   		varchar(20) NOT NULL,
       registerDate          datetime NOT NULL,
