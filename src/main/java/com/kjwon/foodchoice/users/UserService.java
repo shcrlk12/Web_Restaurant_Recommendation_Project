@@ -19,23 +19,26 @@ import java.util.Optional;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 @Service
-public class UserService implements UserDetailsService {
+@AllArgsConstructor
+public class UserService{
 
 
-//    private final UserMapper userMapper;
+    private final UserMapper userMapper;
 //
 //
 //    public UserService(UserMapper userMapper) {
 //        this.userMapper = userMapper;
 //    }
 
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        System.out.println("loadUserByUsername");
+    public UserDetails findByUserId(String username) throws UsernameNotFoundException {
+        Optional<com.kjwon.foodchoice.users.User> optionalUser = userMapper.findByEmail(username);
+
+        com.kjwon.foodchoice.users.User user = optionalUser.orElseThrow(()->{throw new UsernameNotFoundException("user name not found");});
+
         List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
         grantedAuthorities.add(new SimpleGrantedAuthority("ROLE_USER"));
 
-        return new User(username, "1234", grantedAuthorities);
+        return new User(user.getUserId(), user.getPassword(), grantedAuthorities);
     }
 
 //    @Transactional

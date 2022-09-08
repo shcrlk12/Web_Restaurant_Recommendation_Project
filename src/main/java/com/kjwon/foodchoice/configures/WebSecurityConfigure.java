@@ -41,10 +41,10 @@ public class WebSecurityConfigure extends WebSecurityConfigurerAdapter {
 //        this.userService = userService;
 //    }
 
-//    @Bean
-//    public JwtAuthenticationTokenFilter jwtAuthenticationTokenFilter() {
-//        return new JwtAuthenticationTokenFilter(jwtTokenConfigure.getHeader(), jwt);
-//    }
+    @Bean
+    public JwtAuthenticationTokenFilter jwtAuthenticationTokenFilter() {
+        return new JwtAuthenticationTokenFilter();
+    }
 //
 //    @Override
 //    public void configure(WebSecurity web) {
@@ -67,6 +67,11 @@ public class WebSecurityConfigure extends WebSecurityConfigurerAdapter {
         return new LoginSuccessHandler();
     }
 
+    @Bean
+    public LoginFailureHandler loginFailureHandler(){
+        return new LoginFailureHandler();
+    }
+
 //    @Bean
 //    @Override
 //    public AuthenticationManager authenticationManagerBean() throws Exception {
@@ -85,6 +90,10 @@ public class WebSecurityConfigure extends WebSecurityConfigurerAdapter {
                 .disable()
             .headers()
             .disable()
+            .logout()
+                .logoutUrl("/logout")
+                .and()
+
 //            .exceptionHandling()
 //            .accessDeniedHandler(accessDeniedHandler)
 //            .authenticationEntryPoint(unauthorizedHandler)
@@ -94,15 +103,15 @@ public class WebSecurityConfigure extends WebSecurityConfigurerAdapter {
 //            .and()
             .authorizeRequests()
             .antMatchers("/api/users/login").permitAll()
-            .antMatchers("/api/products/**").permitAll()
 //            .antMatchers("/api/**").hasRole(Role.USER.name())
             .anyRequest().permitAll()
             .and()
             .formLogin()
                 .loginPage("/api/users/login")
                 .successHandler(loginSuccessHandler())
-//            .and()
-//            .addFilterBefore(jwtAuthenticationTokenFilter(), UsernamePasswordAuthenticationFilter.class)
+                .failureHandler(loginFailureHandler())
+            .and()
+            .addFilterBefore(jwtAuthenticationTokenFilter(), UsernamePasswordAuthenticationFilter.class)
         ;
     }
 

@@ -10,5 +10,5 @@ public interface UserMapper {
 //
 //    Optional<User> findById(long id);
 //
-//    Optional<User> findByEmail(Email email);
+    Optional<User> findByEmail(String userId);
 }

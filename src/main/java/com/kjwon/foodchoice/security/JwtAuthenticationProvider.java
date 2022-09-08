@@ -27,18 +27,23 @@ import static org.springframework.security.core.authority.AuthorityUtils.createA
 
 @AllArgsConstructor
 public class JwtAuthenticationProvider implements AuthenticationProvider {
-
     private final UserService userService;
 //    private final PasswordEncoder passwordEncoder;
 
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
-        User user = (User)userService.loadUserByUsername("tester@gmail.com");
+        User user = (User)userService.findByUserId("tester@gmail.com");
 
-        UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword(), user.getAuthorities());
+        UsernamePasswordAuthenticationToken auth;
 
-        auth.setDetails(user);
+        if(user.getPassword().equals(String.valueOf(authentication.getCredentials()))) {
+            auth = new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword(), user.getAuthorities());
+            auth.setDetails(user);
+        }
+        else{
+            throw new BadCredentialsException("not matched!");
+        }
         return auth;
 
 //        UsernamePasswordAuthenticationToken authenticationToken = (UsernamePasswordAuthenticationToken) authentication;
