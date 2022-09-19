@@ -3,7 +3,7 @@
         <RestaurantDetail v-bind:restuarantDetail="restuarantDetail"></RestaurantDetail>
         <MenuTable v-bind:menuItemList="menuItemList"></MenuTable>
         <div id="comment-input">
-            <CommentInput></CommentInput>
+            <CommentInput @addComment="addComment"></CommentInput>
         </div>
         <CommentList v-bind:commentItemList="commentItemList"></CommentList>
     </div>
@@ -14,6 +14,7 @@
     import CommentInput from '../items/CommentInput';
     import CommentList from '../items/CommentList';
     import axios from 'axios';
+    import axiosUrlChange from '../util/axiosUrlChange';
 
 export default {
     data(){
@@ -54,17 +55,28 @@ export default {
       fetchComment(url){
         const vue = this;
 
-        axios.get(url)
+        axios.get(url, {withCredentials: true})
         .then(function(response) {
             let data = response.data;
 
             if(data.success === true){
-                console.log(response.data.response)
+                vue.commentItemList = [];
                 response.data.response.forEach(d => {
                     vue.commentItemList.push(d);
                 });
             }
         })
+      }
+      ,addComment(){
+        setTimeout(() => {
+            let restaurantQuery = this.$route.params.id ? `restaurantId=${this.$route.params.id}` : '';
+            let offsetQuery = 'offset=0';
+            let numberQuery = 'number=100';
+
+            this.fetchComment(axiosUrlChange.currentLocationUrl(`api/JSON/restaurant/getComments?${restaurantQuery}&${offsetQuery}&${numberQuery}`));
+        },100);
+
+
       }
     },
     created(){
@@ -76,6 +88,7 @@ export default {
         else{
             baseUrl = 'http://115.139.45.137:1110/';
         }
+        
         let restaurantQuery = this.$route.params.id ? `restaurantId=${this.$route.params.id}` : '';
 
         //1. restuarant detail
@@ -87,7 +100,7 @@ export default {
 
         //3. fetch comment
         let offsetQuery = 'offset=0';
-        let numberQuery = 'number=3';
+        let numberQuery = 'number=100';
 
         this.fetchComment(`${baseUrl}api/JSON/restaurant/getComments?${restaurantQuery}&${offsetQuery}&${numberQuery}`)
     },

@@ -93,11 +93,14 @@ export default {
         border-width: 2px;
         width: 100%;
         overflow: hidden;
+        @include h-center;
+
         #search-container{
             height:50%;
             width: 100%;
             margin: auto 0;
             overflow: hidden;
+            display:flex;
             i{
                 @include wh-center;
                 justify-content: center;

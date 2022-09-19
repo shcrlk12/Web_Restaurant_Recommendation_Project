@@ -1,14 +1,23 @@
 <template>
     <div id="comment-input-container" class="clearfix">
-        <textarea @focusout="inputFocusOut" @focus="inputFocus" id="comment-input-textarea" type="text"></textarea>
+        <textarea @focusout="inputFocusOut" @focus="inputFocus" v-model="textareaContent" id="comment-input-textarea" type="text"></textarea>
         <label for="comment-input-textarea">댓글을 입력하세요</label>
         <div id="comment-submit-btn">
-            <button>등록</button>
+            <button @click="submit">등록</button>
         </div>
     </div>
 </template>
 <script>
+import axios from 'axios';
+import axiosUrlChange from '../util/axiosUrlChange';
+
 export default {
+    data(){
+        return{
+            restaurantId : '',
+            textareaContent : ''
+        }
+    },
     methods:{
         inputFocus(){
             let label = document.querySelector('#comment-input-container label');
@@ -19,6 +28,24 @@ export default {
             if(textarea.value.length === 0){
                 let label = document.querySelector('#comment-input-container label');
                 label.style.display = 'block';
+            }
+        },
+        async addComment(url){
+            let form = new FormData();
+
+            form.append('restaurantId', this.restaurantId)
+            form.append('content', this.textareaContent)
+
+            await axios.post(url, form, {withCredentials: true})
+
+            return true;
+        },
+        submit(){
+            this.restaurantId = window.location.href.split('/').slice(-1)[0];
+            let success = this.addComment(axiosUrlChange.currentLocationUrl('api/JSON/comments/addComment'));
+
+            if(success){
+                this.$emit('addComment');
             }
         }
     }

@@ -5,13 +5,13 @@
                 <span @click="exitClick">x</span></div>
             <div class="modal-inner">
                 <div class="id-input">
-                    <input placeholder="아이디">
+                    <input placeholder="아이디" v-model="username">
                 </div>
                 <div class="pw-input">
-                    <input placeholder="비밀번호">
+                    <input type="password" placeholder="비밀번호" v-model="password">
                 </div>
                 <div class="login-btn">
-                    <button>로그인</button>
+                    <button @click="loginBtnClick">로그인</button>
                 </div>
                 <div class="kakao-login">
                     <a id="kakao-login-btn"></a>
@@ -21,13 +21,43 @@
     </div>
 </template>
 <script>
-
+import axios from 'axios';
+import axiosUrlChange from '../util/axiosUrlChange';
 
 export default {
+    data(){
+        return{
+            username:'',
+            password:''
+        }
+    },
     props:['isVisable'],
     methods:{
-        exitClick(){
+        fetchLogin(url){
+            const vue = this;
+
+            let form = new FormData();
+            form.append('username', this.username)
+            form.append('password', this.password)
+
+            axios.post(url, form, {withCredentials: true})
+            .then(function(response) {
+                console.log(response)
+                vue.loginModalClose();
+            }).catch(()=>{
+                console.log('eerorr')
+            })
+        },
+        loginModalClose(){
             this.$emit('exitClick');
+        },
+        exitClick(){
+            this.loginModalClose();
+        },
+        loginBtnClick(){
+            
+            this.fetchLogin(axiosUrlChange.currentLocationUrl('api/users/login'));
+            
         }
     },
     updated(){
@@ -50,6 +80,7 @@ export default {
 <style lang="scss">
     .login-modal{
         position: absolute;
+        z-index : 2;
         top: 0;
         left: 0;
 
