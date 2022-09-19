@@ -4,10 +4,12 @@ import com.kjwon.foodchoice.dto.CommentDto;
 import com.kjwon.foodchoice.dto.MenuDto;
 import com.kjwon.foodchoice.errors.NotFoundException;
 import lombok.AllArgsConstructor;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.security.Principal;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -25,7 +27,13 @@ public class RestaurantController {
 
     @GetMapping("overview")
     public ApiResult<List<RestaurantDto>> getRestaurantOverviewList(Optional<String> location, Optional<String> classificationType
-            , Optional<Integer> offset, Optional<Integer> number) throws NotFoundException {
+            , Optional<Integer> offset, Optional<Integer> number, Principal principal) throws NotFoundException {
+
+        if(SecurityContextHolder.getContext().getAuthentication() != null) {
+            System.out.println(SecurityContextHolder.getContext().getAuthentication().getCredentials());
+            System.out.println(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+
+        }
 
         List<RestaurantDto> restaurantOverviewList = Collections.emptyList();
 
@@ -57,7 +65,7 @@ public class RestaurantController {
     }
 
     @GetMapping("getComments")
-    public ApiResult<List<CommentDto>> getComments(Optional<Integer> restaurantId, Optional<Integer> offset, Optional<Integer> number){
+    public ApiResult<List<CommentDto>> getComments(Optional<Integer> restaurantId, Optional<Integer> offset, Optional<Integer> number, Principal principal){
         List<CommentDto> menuList = null;
 
         menuList = foodManagementService.getComments(restaurantId.get(), offset.get(), number.get());

@@ -41,10 +41,10 @@ public class WebSecurityConfigure extends WebSecurityConfigurerAdapter {
 //        this.userService = userService;
 //    }
 
-    @Bean
-    public JwtAuthenticationTokenFilter jwtAuthenticationTokenFilter() {
-        return new JwtAuthenticationTokenFilter();
-    }
+//    @Bean
+//    public JwtAuthenticationTokenFilter jwtAuthenticationTokenFilter() {
+//        return new JwtAuthenticationTokenFilter();
+//    }
 //
 //    @Override
 //    public void configure(WebSecurity web) {
@@ -85,14 +85,22 @@ public class WebSecurityConfigure extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http
-            .csrf()
-                .disable()
-            .headers()
-            .disable()
-            .logout()
-                .logoutUrl("/logout")
-                .and()
+
+        http.csrf().disable();
+        http.logout().logoutUrl("/logout");
+        http.formLogin()
+                .loginPage("/api/users/login")
+                .successHandler(loginSuccessHandler())
+                .failureHandler(loginFailureHandler())
+                ;
+
+        http.authorizeRequests()
+                .antMatchers("/api/JSON/restaurant/**").permitAll()
+                .antMatchers("/api/JSON/keyword/**").permitAll()
+//                .antMatchers("/api/JSON/comments/**").hasRole("USER")
+        ;
+
+        super.configure(http);
 
 //            .exceptionHandling()
 //            .accessDeniedHandler(accessDeniedHandler)
@@ -101,18 +109,15 @@ public class WebSecurityConfigure extends WebSecurityConfigurerAdapter {
 //            .sessionManagement()
 //            .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 //            .and()
-            .authorizeRequests()
-            .antMatchers("/api/users/login").permitAll()
+//            .authorizeRequests()
+//            .antMatchers("/api/users/login").permitAll()
+
+
 //            .antMatchers("/api/**").hasRole(Role.USER.name())
-            .anyRequest().permitAll()
-            .and()
-            .formLogin()
-                .loginPage("/api/users/login")
-                .successHandler(loginSuccessHandler())
-                .failureHandler(loginFailureHandler())
-            .and()
-            .addFilterBefore(jwtAuthenticationTokenFilter(), UsernamePasswordAuthenticationFilter.class)
-        ;
+//            .anyRequest().permitAll()
+
+//            .and()
+//            .addFilterBefore(jwtAuthenticationTokenFilter(), UsernamePasswordAuthenticationFilter.class)
     }
 
 }

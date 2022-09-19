@@ -36,7 +36,7 @@ public class UserService{
         com.kjwon.foodchoice.users.User user = optionalUser.orElseThrow(()->{throw new UsernameNotFoundException("user name not found");});
 
         List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
-        grantedAuthorities.add(new SimpleGrantedAuthority("ROLE_USER"));
+        grantedAuthorities.add(new SimpleGrantedAuthority("USER"));
 
         return new User(user.getUserId(), user.getPassword(), grantedAuthorities);
     }
