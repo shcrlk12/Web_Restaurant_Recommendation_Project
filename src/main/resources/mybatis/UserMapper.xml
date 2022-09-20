@@ -4,4 +4,9 @@
     <select id="findByEmail" resultType="com.kjwon.foodchoice.users.User">
         select * from user where userId = #{userId};
     </select>
+
+    <insert id="registerUser">
+        INSERT INTO user
+        VALUES (#{userId}, #{password}, #{username}, '', '', now() , now(), 0);
+    </insert>
 </mapper>

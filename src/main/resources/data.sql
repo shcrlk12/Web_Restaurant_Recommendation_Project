@@ -1,8 +1,8 @@
 -- registerKeyword 데이터 생성
-INSERT INTO registerKeyword(city, smallCity, name, consonantVowel, type,latitude, longitude, roadAddress, roadZipCode) VALUES ('서울특별시','강북구','미아역', 'ㅁㅣㅇㅏㅇㅕㄱ','station',37.626453, 127.026119,'서울특별시 영등포구 도신로33길 11, 1층 (도림동)','7368');
-INSERT INTO registerKeyword(city, smallCity, name, consonantVowel, type,latitude, longitude, roadAddress, roadZipCode) VALUES ('서울특별시','강북구','수유역', 'ㅅㅜㅇㅠㅇㅕㄱ','station',37.6371095, 127.0247325,'서울특별시 영등포구 도신로33길 11, 1층 (도림동)','7368');
-INSERT INTO registerKeyword(city, smallCity, name, consonantVowel, type,latitude, longitude, roadAddress, roadZipCode) VALUES ('서울특별시','강남구','압구정역', 'ㅇㅏㅂㄱㅜㅈㅓㅇㅇㅕㄱ','station',37.526063, 127.028674,'서울특별시 영등포구 도신로33길 11, 1층 (도림동)','7368');
-INSERT INTO registerKeyword(city, smallCity, name, consonantVowel, type,latitude, longitude, roadAddress, roadZipCode) VALUES ('서울특별시','강남구','테스트역', 'ㅌㅔㅅㅡㅌㅡㅇㅕㄱ','station',37.526063, 127.028674,'서울특별시 영등포구 도신로33길 11, 1층 (도림동)','7368');
+INSERT INTO registerKeyword(name, consonantVowel, type,latitude, longitude, roadAddress, roadZipCode) VALUES ('미아역', 'ㅁㅣㅇㅏㅇㅕㄱ','station',37.626453, 127.026119,'서울특별시 영등포구 도신로33길 11, 1층 (도림동)','7368');
+INSERT INTO registerKeyword(name, consonantVowel, type,latitude, longitude, roadAddress, roadZipCode) VALUES ('수유역', 'ㅅㅜㅇㅠㅇㅕㄱ','station',37.6371095, 127.0247325,'서울특별시 영등포구 도신로33길 11, 1층 (도림동)','7368');
+INSERT INTO registerKeyword(name, consonantVowel, type,latitude, longitude, roadAddress, roadZipCode) VALUES ('압구정역', 'ㅇㅏㅂㄱㅜㅈㅓㅇㅇㅕㄱ','station',37.526063, 127.028674,'서울특별시 영등포구 도신로33길 11, 1층 (도림동)','7368');
+INSERT INTO registerKeyword(name, consonantVowel, type,latitude, longitude, roadAddress, roadZipCode) VALUES ('테스트역', 'ㅌㅔㅅㅡㅌㅡㅇㅕㄱ','station',37.526063, 127.028674,'서울특별시 영등포구 도신로33길 11, 1층 (도림동)','7368');
 
 -- food(city, smallCity, name, marketType,description, isOperating, startDate, latitude, longitude, roadAddress, roadZipCode, titleImageUrl,likesNumber,commentsNumber) 데이터 생성
 INSERT INTO restaurant(city, smallCity, name, marketType,description, isOperating, startDate, latitude, longitude, roadAddress, roadZipCode, titleImageUrl,likesNumber,commentsNumber) VALUES ('서울특별시', '영등포구', '푸드 딜리버리 영등포점','한식','최강 한식 대전 출연',true,'20220517',37.5106754,126.9073306,'서울특별시 영등포구 도신로33길 11, 1층 (도림동)','7368','https://t1.daumcdn.net/cfile/tistory/992944375AC6D3B408', 97, 141);

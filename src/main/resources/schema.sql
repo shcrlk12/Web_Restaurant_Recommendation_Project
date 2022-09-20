@@ -6,8 +6,6 @@ DROP TABLE IF EXISTS comment CASCADE;
 
 CREATE TABLE registerKeyword (
       id              bigint NOT NULL AUTO_INCREMENT, -- 등록 지점 PK
-      city             varchar(40) NOT NULL,          -- 등록 지점 PK
-      smallCity        varchar(40) NOT NULL,          -- 등록 지점 PK
       name             varchar(40) NOT NULL,           -- 등록 지점 이름
       consonantVowel   varchar(100) NOT NULL,
       type             varchar(50) NOT NULL,          -- 등록 지점 타입(정류장, 지하철 역)

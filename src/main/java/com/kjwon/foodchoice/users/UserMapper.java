@@ -10,5 +10,6 @@ public interface UserMapper {
 //
 //    Optional<User> findById(long id);
 //
+    void registerUser(String userId, String password, String username);
     Optional<User> findByEmail(String userId);
 }

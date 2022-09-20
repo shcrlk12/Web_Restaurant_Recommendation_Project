@@ -9,9 +9,9 @@ import org.springframework.stereotype.Service;
 public class CommentsServiceImpl {
     private final CommentMapper commentMapper;
 
-    public boolean addComment(int restaurantId, String content)
+    public boolean addComment(String username, int restaurantId, String content)
     {
-        commentMapper.addComment(restaurantId, content);
+        commentMapper.addComment(username, restaurantId, content);
 
         return true;
     }

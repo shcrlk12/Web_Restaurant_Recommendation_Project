@@ -8,5 +8,5 @@ import java.util.List;
 @Mapper
 public interface CommentMapper {
     List<Comment> findCommentsByRestaurantId(int restaurantId, int offset, int number);
-    void addComment(int restaurantId, String content);
+    void addComment(String username, int restaurantId, String content);
 }

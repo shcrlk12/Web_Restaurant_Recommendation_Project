@@ -24,7 +24,7 @@ public class CommentsController {
     private final CommentsServiceImpl commentsService;
     @PostMapping("addComment")
     public ApiResult<String> getComments(Optional<Integer> restaurantId, Optional<String> content, Principal principal){
-        commentsService.addComment(restaurantId.get(), content.get());
+        commentsService.addComment(principal.getName().split("-")[0], restaurantId.get(), content.get());
 
         return success("success!");
     }

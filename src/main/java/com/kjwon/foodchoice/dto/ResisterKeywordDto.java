@@ -13,8 +13,6 @@ import java.util.List;
 @NoArgsConstructor
 public class ResisterKeywordDto {
     long id;
-    String city;
-    String smallCity;
     String name;
     String type;
     double latitude;
@@ -25,8 +23,6 @@ public class ResisterKeywordDto {
     public static ResisterKeywordDto of(RegisterKeyword resisterKeyword){
         return ResisterKeywordDto.builder()
                 .id(resisterKeyword.getId())
-                .city(resisterKeyword.getCity())
-                .smallCity(resisterKeyword.getSmallCity())
                 .name(resisterKeyword.getName())
                 .type(resisterKeyword.getType())
                 .latitude(resisterKeyword.getLatitude())

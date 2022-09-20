@@ -7,8 +7,6 @@ import lombok.Setter;
 @Setter
 public class RegisterKeyword {
     long id;
-    String city;
-    String smallCity;
     String name;
     String type;
     double latitude;

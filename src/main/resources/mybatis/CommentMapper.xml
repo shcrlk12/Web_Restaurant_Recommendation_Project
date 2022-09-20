@@ -7,6 +7,6 @@
 
     <insert id="addComment">
         INSERT INTO comment(content, registerDate, userId, restaurantId, commentId)
-        VALUES (#{content}, now(), 'shcrlk12@naver.com', #{restaurantId}, 0);
+        VALUES (#{content}, now(), #{username}, #{restaurantId}, 0);
     </insert>
 </mapper>

@@ -41,6 +41,24 @@ public class UserService{
         return new User(user.getUserId(), user.getPassword(), grantedAuthorities);
     }
 
+    public UserDetails kakaoLogin(String username){
+        Optional<com.kjwon.foodchoice.users.User> optionalUser = userMapper.findByEmail(username);
+        List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
+        grantedAuthorities.add(new SimpleGrantedAuthority("USER"));
+
+        com.kjwon.foodchoice.users.User user = null;
+
+        if(optionalUser.isPresent()){
+            user = optionalUser.get();
+
+            return new User(user.getUserId(), user.getPassword(), grantedAuthorities);
+        }else{
+            userMapper.registerUser(username, "", username.split("-")[0]);
+
+            return new User(username, "", grantedAuthorities);
+        }
+    }
+
 //    @Transactional
 //    public User login(Email email, String password) {
 //        checkNotNull(password, "password must be provided");

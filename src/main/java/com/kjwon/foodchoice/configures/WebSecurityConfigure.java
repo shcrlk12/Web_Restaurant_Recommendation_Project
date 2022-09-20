@@ -56,9 +56,15 @@ public class WebSecurityConfigure extends WebSecurityConfigurerAdapter {
         return new JwtAuthenticationProvider(userService);
     }
 
+    @Bean
+    public KakaoLoginProvider kakaoLoginProvider(UserService userService) {
+        return new KakaoLoginProvider(userService);
+    }
+
     @Override
     public void configure(AuthenticationManagerBuilder builder) {
         builder.authenticationProvider(jwtAuthenticationProvider(userService));
+        builder.authenticationProvider(kakaoLoginProvider(userService));
     }
 
 

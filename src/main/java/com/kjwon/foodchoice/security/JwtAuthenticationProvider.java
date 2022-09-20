@@ -33,7 +33,7 @@ public class JwtAuthenticationProvider implements AuthenticationProvider {
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
-        User user = (User)userService.findByUserId("tester@gmail.com");
+        User user = (User)userService.findByUserId((String)authentication.getPrincipal());
 
         UsernamePasswordAuthenticationToken auth;
 
