@@ -41,11 +41,15 @@ export default {
             return true;
         },
         submit(){
-            this.restaurantId = window.location.href.split('/').slice(-1)[0];
-            let success = this.addComment(axiosUrlChange.currentLocationUrl('api/JSON/comments/addComment'));
+            if(window.confirm('정말로 댓글을 작성하시겠습니까?'))
+            {
+                this.restaurantId = window.location.href.split('/').slice(-1)[0];
+                let success = this.addComment(axiosUrlChange.currentLocationUrl('api/JSON/comments/addComment'));
 
-            if(success){
-                this.$emit('addComment');
+                if(success){
+                    this.$emit('addComment');
+                    this.textareaContent = '';
+                }
             }
         }
     }

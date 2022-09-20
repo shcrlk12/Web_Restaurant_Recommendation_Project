@@ -58,16 +58,40 @@ export default {
             
             this.fetchLogin(axiosUrlChange.currentLocationUrl('api/users/login'));
             
+        },
+        kakaoLogin(access_token, username){
+            let url = axiosUrlChange.currentLocationUrl('api/users/login')
+
+            const vue = this;
+
+            let form = new FormData();
+            form.append('password', access_token)
+            form.append('username', username)
+
+            axios.post(url, form, {withCredentials: true})
+            .then(function() {
+                vue.loginModalClose();
+            }).catch(()=>{
+            })
         }
     },
     updated(){
+        let vue = this;
         if(window.Kakao.isInitialized() == false){
             window.Kakao.init('21fdda51396c4fa6baa9d79754919f17');
 
             window.Kakao.Auth.createLoginButton({
                 container: '#kakao-login-btn',
-                success: function (authObj) {
-                    console.log(JSON.stringify(authObj));
+                success: async function (authObj) {
+
+                    let resopnse = await axios.get('https://kapi.kakao.com/v2/user/me', {
+                        headers : {
+                            Authorization : `Bearer ${authObj.access_token}`
+                        }
+                    });
+                    let username = resopnse.data.kakao_account.profile.nickname + '-' + resopnse.data.id;
+
+                    vue.kakaoLogin(authObj.access_token, username);
                 },
                 fail: function (err) {
                     alert(JSON.stringify(err));

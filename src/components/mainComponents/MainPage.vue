@@ -8,12 +8,14 @@
 import PageHeader from '../page/PageHeader.vue';
 import FoodOverviewList from '../items/FoodOverviewList.vue';
 import axios from 'axios';
+import axiosUrlChange from '../util/axiosUrlChange';
 
 export default {
     data(){
         return{
             searchType : '',
-            foodOverviewList : []
+            foodOverviewList : [],
+            offset : 0
         }
     },
     methods:{
@@ -39,23 +41,33 @@ export default {
         }
 
         localStorage.setItem('searchType', this.searchType);
+      },
+      fetchOveview(){
+        this.searchType = localStorage.getItem('searchType');
+    
+        let locationQuery = this.$route.query.location ? `&location=${this.$route.query.location}` : '';
+        let classificationTypeQuery = this.searchType ? `&classificationType=${this.searchType}` : '&classificationType=popular';
+           
+        let offsetQuery = this.offset ? `&offset=${this.offset}`: '';
+
+        this.fetchData(axiosUrlChange.currentLocationUrl(`api/JSON/restaurant/overview?number=3
+        ${locationQuery ? locationQuery : ''}
+        ${classificationTypeQuery ? classificationTypeQuery : ''}
+        ${offsetQuery ? offsetQuery : ''}`));
+
+        this.offset += 3;
+        
       }
     },
     created(){
-        this.searchType = localStorage.getItem('searchType');
-
-        if(window.location.href.includes('localhost')){
-            console.log('local');
-            this.fetchData('http://localhost:1110/api/JSON/restaurant/overview?number=3');
-        }
-        else{
-            let locationQuery = this.$route.query.location ? `&location=${this.$route.query.location}` : '';
-            let classificationTypeQuery = this.searchType ? `&classificationType=${this.searchType}` : '&classificationType=popular';
-
-            console.log('external');
-
-            this.fetchData(`http://115.139.45.137:1110/api/JSON/restaurant/overview?number=3${locationQuery ? locationQuery : ''}${classificationTypeQuery ? classificationTypeQuery : ''}`);
-        }
+        this.fetchOveview();
+        window.addEventListener("scroll", () => {
+                if(document.body.scrollHeight - 1 < window.scrollY + window.outerHeight){
+                    console.log('scroll end');
+                    this.fetchOveview();
+                }
+            });
+    
     },
     updated(){
         if(window.location.href.includes('localhost')){

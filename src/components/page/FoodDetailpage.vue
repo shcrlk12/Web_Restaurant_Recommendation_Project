@@ -80,6 +80,7 @@ export default {
       }
     },
     created(){
+
         let baseUrl;
         
         if(window.location.href.includes('localhost')){
