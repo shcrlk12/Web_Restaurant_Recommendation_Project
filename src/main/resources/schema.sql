@@ -11,8 +11,6 @@ CREATE TABLE registerKeyword (
       type             varchar(50) NOT NULL,          -- 등록 지점 타입(정류장, 지하철 역)
       latitude         real NOT NULL,                 -- 위도
       longitude        real NOT NULL,                 -- 경도
-      roadAddress      varchar(255) NOT NULL,          -- 도로명 주소
-      roadZipCode      varchar(10) NOT NULL,           -- 도로명 우편번호
       PRIMARY KEY (id),
       key ind_consVow(consonantVowel)
 );

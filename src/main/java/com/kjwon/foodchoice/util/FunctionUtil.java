@@ -55,17 +55,30 @@ public class FunctionUtil {
         int fn = uni / 588;
         int sn = (uni - (fn * 588)) / 28;
         int tn = uni % 28;
+        System.out.println(character);
+
+        System.out.println("fn" + fn);
+        System.out.println("fn" + sn);
+        System.out.println("fn" + tn);
 
         return tn != 0 ? f[fn] + s[sn] + t[tn]
                 : f[fn] + s[sn];
     }
 
     public static String getConsonantVowel(String str) {
+        System.out.println(str);
+
         StringBuilder sb = new StringBuilder();
         for(int i = 0; i < str.length(); i++){
-            sb.append(getConsonantVowelInChar(String.valueOf(str.charAt(i))));
+            if(str.charAt(i) == '(')
+                sb.append('(');
+            else if(str.charAt(i) == ')')
+                sb.append(')');
+            else if(str.charAt(i) >= '0' &&  str.charAt(i) <= '9')
+                sb.append(str.charAt(i));
+            else
+                sb.append(getConsonantVowelInChar(String.valueOf(str.charAt(i))));
         }
-
         return sb.toString();
 
     }

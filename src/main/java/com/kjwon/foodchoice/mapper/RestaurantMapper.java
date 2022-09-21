@@ -10,7 +10,7 @@ public interface RestaurantMapper {
 
     Restaurant findById(long id);
 
-    List<Restaurant> findNearLocation(String city, String smallCity, double latitude, double longitude, int offset, int number);
+    List<Restaurant> findNearLocation(double latitude, double longitude, int offset, int number);
 
     List<Restaurant> findMostLike(int offset, int number);
 

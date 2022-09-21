@@ -11,7 +11,4 @@ public class RegisterKeyword {
     String type;
     double latitude;
     double longitude;
-    String roadAddress;
-    String readZipCode;
-
 }

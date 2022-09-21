@@ -6,10 +6,9 @@
     </select>
 
     <select id="findNearLocation" resultType="com.kjwon.foodchoice.vo.Restaurant">
-        SELECT * FROM (SELECT * FROM restaurant AS f WHERE f.city = #{city}
-                                  AND f.smallCity = #{smallCity}
-                                  AND f.latitude BETWEEN #{latitude} - 0.1 AND #{latitude} + 0.1
-                                  AND f.longitude BETWEEN #{longitude} - 0.1 AND #{longitude} +0.1) AS sub
+        SELECT * FROM (SELECT * FROM restaurant AS f WHERE
+                                  f.latitude BETWEEN #{latitude} - 1 AND #{latitude} + 1
+                                  AND f.longitude BETWEEN #{longitude} - 1 AND #{longitude} +1) AS sub
                  ORDER BY ABS(POW(sub.latitude - #{latitude},2)+POW(sub.longitude-#{longitude},2)) ASC LIMIT #{number} OFFSET #{offset}
     </select>
 

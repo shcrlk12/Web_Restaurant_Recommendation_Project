@@ -9,4 +9,11 @@
         SELECT * FROM registerkeyword AS r WHERE r.consonantVowel like #{keyword} LIMIT 5
     </select>
 
+    <select id="findKeyword" resultType="com.kjwon.foodchoice.vo.RegisterKeyword">
+        SELECT * FROM registerkeyword AS r WHERE r.consonantVowel = #{keyword}
+    </select>
+
+    <insert id="insertKeyword">
+        INSERT INTO registerKeyword(name, consonantVowel, type,latitude, longitude) VALUES ( #{name}, #{keyword},'station',#{latitude}, #{longitude});
+    </insert>
 </mapper>

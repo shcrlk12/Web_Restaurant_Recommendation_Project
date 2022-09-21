@@ -30,8 +30,7 @@ public class FoodManagementServiceImpl implements RestaurantInfo, RestaurantSear
     @Override
     public List<RestaurantDto> findNearRestaurant(String location, int offset, int number) throws NotFoundException {
         LatLongPosition latLongPosition = this.getLatitudeLongitudeLocation(location);
-        List<Restaurant> restaurantList = restaurantMapper.findNearLocation(latLongPosition.getCity(),
-                latLongPosition.getSmallCity(),
+        List<Restaurant> restaurantList = restaurantMapper.findNearLocation(
                 latLongPosition.getLatitude(),
                 latLongPosition.getLongitude(),
                 offset,

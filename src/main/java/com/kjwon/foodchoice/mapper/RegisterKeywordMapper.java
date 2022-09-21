@@ -5,6 +5,7 @@ import com.kjwon.foodchoice.vo.RegisterKeyword;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
+import java.util.Optional;
 
 @Mapper
 public interface RegisterKeywordMapper {
@@ -12,4 +13,7 @@ public interface RegisterKeywordMapper {
 
     List<RegisterKeyword> findCompareKeyword(String keyword);
 
+    Optional<RegisterKeyword> findKeyword(String keyword);
+
+    void insertKeyword(String name, String keyword, double latitude, double longitude );
 }

@@ -17,8 +17,6 @@ public class ResisterKeywordDto {
     String type;
     double latitude;
     double longitude;
-    String roadAddress;
-    String readZipCode;
 
     public static ResisterKeywordDto of(RegisterKeyword resisterKeyword){
         return ResisterKeywordDto.builder()
@@ -27,8 +25,6 @@ public class ResisterKeywordDto {
                 .type(resisterKeyword.getType())
                 .latitude(resisterKeyword.getLatitude())
                 .longitude(resisterKeyword.getLongitude())
-                .roadAddress(resisterKeyword.getRoadAddress())
-                .readZipCode(resisterKeyword.getReadZipCode())
                 .build();
     }
 
