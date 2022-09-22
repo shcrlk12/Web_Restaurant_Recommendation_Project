@@ -1,0 +1,33 @@
+spring:
+  datasource:
+    url: jdbc:mariadb://127.0.0.1:3306/testdb
+    driver-class-name: org.mariadb.jdbc.Driver
+    username: root
+    password: 1234
+  sql:
+    init:
+      mode: always
+      schema-locations: classpath:schema.sql
+      data-locations: classpath:data.sql
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    defer-datasource-initialization: true
+
+mybatis:
+  mapper-locations: mybatis/*.xml
+  configuration:
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+server:
+  port: 11101
+logging:
+  level:
+    root: info
+jwt:
+  token:
+    header: X-PRGRMS-AUTH
+    issuer: programmers
+    client-secret: Rel3Bjce2MajBo09qgkNgYaTuzvJe8iwnBFhsDS5
+    expiry-seconds: 0

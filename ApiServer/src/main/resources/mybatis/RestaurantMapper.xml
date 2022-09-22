@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kjwon.foodchoice.mapper.RestaurantMapper">
+    <select id="findById" resultType="com.kjwon.foodchoice.vo.Restaurant">
+        select * from restaurant where id = #{id};
+    </select>
+
+    <select id="findNearLocation" resultType="com.kjwon.foodchoice.vo.Restaurant">
+        SELECT * FROM (SELECT * FROM restaurant AS f WHERE
+                                  f.latitude BETWEEN #{latitude} - 1 AND #{latitude} + 1
+                                  AND f.longitude BETWEEN #{longitude} - 1 AND #{longitude} +1) AS sub
+                 ORDER BY ABS(POW(sub.latitude - #{latitude},2)+POW(sub.longitude-#{longitude},2)) ASC LIMIT #{number} OFFSET #{offset}
+    </select>
+
+    <select id="findMostLike" resultType="com.kjwon.foodchoice.vo.Restaurant">
+        SELECT * FROM restaurant AS f ORDER BY f.likesNumber DESC LIMIT #{number} OFFSET #{offset}
+    </select>
+</mapper>

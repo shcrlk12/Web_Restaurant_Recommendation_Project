@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kjwon.foodchoice.mapper.CommentMapper">
+    <select id="findCommentsByRestaurantId" resultType="com.kjwon.foodchoice.vo.Comment">
+        SELECT * FROM comment AS c WHERE c.restaurantId = #{restaurantId} ORDER BY c.registerDate LIMIT #{number} OFFSET #{offset};
+    </select>
+
+    <insert id="addComment">
+        INSERT INTO comment(content, registerDate, userId, restaurantId, commentId)
+        VALUES (#{content}, now(), #{username}, #{restaurantId}, 0);
+    </insert>
+</mapper>
